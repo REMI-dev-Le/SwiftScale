@@ -1,0 +1,62 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/SwiftScale.BuildingBlocks.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Catalog/" />
+  <Folder Name="/src/Modules/Catalog/Application/">
+    <Project Path="src/Modules/Catalog/Application/SwiftScale.Modules.Catalog.Application.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Catalog/Domain/">
+    <Project Path="src/Modules/Catalog/Domain/SwiftScale.Modules.Catalog.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Catalog/Infrastructure/">
+    <Project Path="src/Modules/Catalog/Infrastructure/SwiftScale.Modules.Catalog.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Catalog/Presentation/">
+    <Project Path="src/Modules/Catalog/Presentation/SwiftScale.Modules.Catalog.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Identity/" />
+  <Folder Name="/src/Modules/Identity/Application/">
+    <Project Path="src/Modules/Identity/Application/SwiftScale.Modules.Identity.Application.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Identity/Domain/">
+    <Project Path="src/Modules/Identity/Domain/SwiftScale.Modules.Identity.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Identity/Infrastructure/">
+    <Project Path="src/Modules/Identity/Infrastructure/SwiftScale.Modules.Identity.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Identity/Presentation/">
+    <Project Path="src/Modules/Identity/Presentation/SwiftScale.Modules.Identity.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Ordering/" />
+  <Folder Name="/src/Modules/Ordering/Application/">
+    <Project Path="src/Modules/Ordering/Application/SwiftScale.Modules.Ordering.Application.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Ordering/Domain/">
+    <Project Path="src/Modules/Ordering/Domain/SwiftScale.Modules.Ordering.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Ordering/Infrastructure/">
+    <Project Path="src/Modules/Ordering/Infrastructure/SwiftScale.Modules.Ordering.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Ordering/Presentation/">
+    <Project Path="src/Modules/Ordering/Presentation/SwiftScale.Modules.Ordering.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Payment/" />
+  <Folder Name="/src/Modules/Payment/Application/">
+    <Project Path="src/Modules/Payment/Application/SwiftScale.Modules.Payment.Application.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Payment/Domain/">
+    <Project Path="src/Modules/Payment/Domain/SwiftScale.Modules.Payment.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Payment/Infrastructure/">
+    <Project Path="src/Modules/Payment/Infrastructure/SwiftScale.Modules.Payment.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Payment/Presentation/">
+    <Project Path="src/Modules/Payment/Presentation/SwiftScale.Modules.Payment.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/src/WebApi/">
+    <Project Path="src/WebApi/SwiftScale.WebApi.csproj" />
+  </Folder>
+</Solution>

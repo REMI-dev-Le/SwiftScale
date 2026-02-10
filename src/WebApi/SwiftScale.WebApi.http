@@ -1,0 +1,6 @@
+@SwiftScale.WebApi_HostAddress = http://localhost:5152
+
+GET {{SwiftScale.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
