@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Ordering\Application\SwiftScale.Modules.Ordering.Application.csproj" />
+    <ProjectReference Include="..\Application\SwiftScale.Modules.Identity.Application.csproj" />
     <ProjectReference Include="..\Domain\SwiftScale.Modules.Identity.Domain.csproj" />
   </ItemGroup>
 

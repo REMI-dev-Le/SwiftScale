@@ -1,6 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="14.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\SwiftScale.BuildingBlocks.csproj" />
     <ProjectReference Include="..\Domain\SwiftScale.Modules.Identity.Domain.csproj" />
   </ItemGroup>
 
