@@ -7,8 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Ordering\Application\SwiftScale.Modules.Ordering.Application.csproj" />
     <ProjectReference Include="..\..\Ordering\Domain\SwiftScale.Modules.Ordering.Domain.csproj" />
+    <ProjectReference Include="..\Domain\SwiftScale.Modules.Payment.Domain.csproj" />
   </ItemGroup>
 
 </Project>
