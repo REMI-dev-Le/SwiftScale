@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using SwiftScale.Modules.Catalog.Application.Interfaces;
 
 namespace SwiftScale.Modules.Catalog.Infrastructure
 {
@@ -15,6 +13,10 @@ namespace SwiftScale.Modules.Catalog.Infrastructure
                 options.UseNpgsql(configuration.GetConnectionString("Database"),
                     npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(CatalogDbContext).Assembly.FullName)));
 
+            services.AddScoped<ICatalogDbContext>(sp => sp.GetRequiredService<CatalogDbContext>());
+
+            services.AddMediatR(config =>
+                config.RegisterServicesFromAssembly(typeof(ICatalogDbContext).Assembly));
             return services;
         }
     }

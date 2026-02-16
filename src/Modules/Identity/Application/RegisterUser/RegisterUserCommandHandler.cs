@@ -5,7 +5,7 @@ using SwiftScale.Modules.Identity.Domain;
 
 namespace SwiftScale.Modules.Identity.Application.RegisterUser
 {
-    internal sealed class RegisterUserCommandHandler(IIdentityDbContext context, IPasswordHasher passwordHasher) : IRequestHandler<RegisterUserCommand, Result<Guid>>
+    public sealed class RegisterUserCommandHandler(IIdentityDbContext context, IPasswordHasher passwordHasher) : IRequestHandler<RegisterUserCommand, Result<Guid>>
     {
 
         public async Task<Result<Guid>> Handle(RegisterUserCommand request,CancellationToken cancellationToken)

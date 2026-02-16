@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\SwiftScale.BuildingBlocks.csproj" />
     <ProjectReference Include="..\Application\SwiftScale.Modules.Catalog.Application.csproj" />
+    <ProjectReference Include="..\Infrastructure\SwiftScale.Modules.Catalog.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

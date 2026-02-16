@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SwiftScale.Modules.Ordering.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,6 +15,11 @@ namespace SwiftScale.Modules.Ordering.Infrastructure
             services.AddDbContext<OrderingDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("Database"),
                     npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(OrderingDbContext).Assembly.FullName)));
+
+            services.AddScoped<IOrderingDbContext>(sp => sp.GetRequiredService<OrderingDbContext>());
+
+            services.AddMediatR(config =>
+                config.RegisterServicesFromAssembly(typeof(IOrderingDbContext).Assembly));
 
             return services;
         }

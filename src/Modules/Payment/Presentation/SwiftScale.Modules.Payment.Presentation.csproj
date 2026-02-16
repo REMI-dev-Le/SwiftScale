@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\SwiftScale.BuildingBlocks.csproj" />
     <ProjectReference Include="..\Application\SwiftScale.Modules.Payment.Application.csproj" />
+    <ProjectReference Include="..\Infrastructure\SwiftScale.Modules.Payment.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
