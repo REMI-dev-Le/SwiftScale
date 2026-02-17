@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SwiftScale.BuildingBlocks;
+using SwiftScale.Modules.Catalog.Application.Products.CreateProduct;
 using SwiftScale.Modules.Catalog.Infrastructure;
 
 
@@ -22,6 +24,13 @@ public class CatalogModule : IModule
     {
         var group = endpoints.MapGroup("catalog");
         group.MapGet("/events", () => Results.Ok("Catalog Events List"));
+
+        group.MapPost("/products", async (CreateProductCommand command, ISender sender) =>
+        {
+            var result = await sender.Send(command);
+
+            return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
+        });
         return endpoints;
     }
 }

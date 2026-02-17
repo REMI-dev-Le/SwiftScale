@@ -19,9 +19,17 @@ public class CatalogDbContext : DbContext, ICatalogDbContext
         get => Set<Event>();
     }
 
+    public DbSet<Product> Products
+    {
+        get => Set<Product>();
+    }
+
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("catalog");
+        // This line automatically finds the ProductConfiguration file
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CatalogDbContext).Assembly);
         base.OnModelCreating(modelBuilder);
     }
 }
