@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="14.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Identity\Application\SwiftScale.Modules.Identity.Application.csproj" />
     <ProjectReference Include="..\Domain\SwiftScale.Modules.Ordering.Domain.csproj" />
   </ItemGroup>
 

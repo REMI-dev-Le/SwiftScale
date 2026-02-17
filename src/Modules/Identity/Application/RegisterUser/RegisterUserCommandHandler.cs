@@ -5,7 +5,7 @@ using SwiftScale.Modules.Identity.Domain;
 
 namespace SwiftScale.Modules.Identity.Application.RegisterUser
 {
-    public sealed class RegisterUserCommandHandler(IIdentityDbContext context, IPasswordHasher passwordHasher) : IRequestHandler<RegisterUserCommand, Result<Guid>>
+    public sealed class RegisterUserCommandHandler(IIdentityDbContext context, IPasswordHasher passwordHasher, IPublisher publisher) : IRequestHandler<RegisterUserCommand, Result<Guid>>
     {
 
         public async Task<Result<Guid>> Handle(RegisterUserCommand request,CancellationToken cancellationToken)
@@ -23,6 +23,9 @@ namespace SwiftScale.Modules.Identity.Application.RegisterUser
             // 3. Persist
             context.Users.Add(user);
             await context.SaveChangesAsync(cancellationToken);
+
+            // Architect Rule: Publish AFTER the database transaction succeeds
+            await publisher.Publish(new UserRegisteredIntegrationEvent(user.Id, user.Email), cancellationToken);
 
             return Result<Guid>.Success(user.Id);
         }
