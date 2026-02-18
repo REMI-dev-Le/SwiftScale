@@ -16,12 +16,18 @@ namespace SwiftScale.Modules.Catalog.Application.Products.CreateProduct
                 return Result<Guid>.Failure(priceResult.Error);
             }
 
+            var skuResult = Sku.Create(request.SkuString);
+            if (skuResult.IsFailure)
+            {
+                return Result<Guid>.Failure(skuResult.Error);
+            }
+
             // 2. Attempt to create the Product entity
             var productResult = Product.Create(
                 request.Name,
                 request.Description,
                 priceResult.Value,
-                request.Sku);
+                skuResult.Value);
 
             if (productResult.IsFailure)
             {

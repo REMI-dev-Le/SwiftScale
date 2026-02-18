@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SwiftScale.BuildingBlocks;
 using SwiftScale.Modules.Catalog.Application.Products.CreateProduct;
+using SwiftScale.Modules.Catalog.Application.Products.GetProduct;
 using SwiftScale.Modules.Catalog.Infrastructure;
 
 
@@ -30,6 +31,12 @@ public class CatalogModule : IModule
             var result = await sender.Send(command);
 
             return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
+        });
+
+        group.MapGet("/products/{id:guid}", async (Guid id, ISender sender) =>
+        {
+            var result = await sender.Send(new GetProductQuery(id));
+            return result.IsSuccess ? Results.Ok(result.Value) : Results.NotFound(result.Error);
         });
         return endpoints;
     }

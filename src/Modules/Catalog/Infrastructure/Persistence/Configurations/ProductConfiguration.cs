@@ -22,7 +22,10 @@ namespace SwiftScale.Modules.Catalog.Infrastructure.Persistence.Configurations
                 priceBuilder.Property(m => m.Currency).HasColumnName("PriceCurrency").HasMaxLength(3);
             });
 
-            builder.Property(p => p.Sku).IsRequired();
+             builder.Property(p => p.Sku)
+                               .HasConversion(sku => sku.Value, value => Sku.Create(value).Value) // Map Object <-> String
+                               .HasColumnName("Sku")
+                               .IsRequired();
         }
     }
 }

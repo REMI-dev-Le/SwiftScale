@@ -1,6 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace SwiftScale.BuildingBlocks;
+﻿namespace SwiftScale.BuildingBlocks;
 
 //public record Result(bool IsSuccess, string Error = "")
 //{
