@@ -26,6 +26,8 @@ namespace SwiftScale.Modules.Catalog.Infrastructure.Persistence.Configurations
                                .HasConversion(sku => sku.Value, value => Sku.Create(value).Value) // Map Object <-> String
                                .HasColumnName("Sku")
                                .IsRequired();
+
+            builder.Property(p => p.ImagePath).HasMaxLength(500);
         }
     }
 }

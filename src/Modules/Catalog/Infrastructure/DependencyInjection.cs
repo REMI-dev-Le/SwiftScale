@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SwiftScale.BuildingBlocks.Storage;
 using SwiftScale.Modules.Catalog.Application.Interfaces;
+using SwiftScale.Modules.Catalog.Infrastructure.Storage;
 
 namespace SwiftScale.Modules.Catalog.Infrastructure
 {
@@ -14,7 +16,8 @@ namespace SwiftScale.Modules.Catalog.Infrastructure
                     npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(CatalogDbContext).Assembly.FullName)));
 
             services.AddScoped<ICatalogDbContext>(sp => sp.GetRequiredService<CatalogDbContext>());
-
+            services.AddScoped<IFileStorageService, LocalFileStorageService>();
+            services.AddScoped<IFileStorageService, LocalFileStorageService>();
             services.AddMediatR(config =>
                 config.RegisterServicesFromAssembly(typeof(ICatalogDbContext).Assembly));
             return services;

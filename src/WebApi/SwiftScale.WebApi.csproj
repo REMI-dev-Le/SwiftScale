@@ -27,4 +27,8 @@
     <ProjectReference Include="..\Modules\Payment\Presentation\SwiftScale.Modules.Payment.Presentation.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

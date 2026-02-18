@@ -9,7 +9,14 @@ namespace SwiftScale.Modules.Catalog.Domain
         public Money Price { get; private set; } = default!;
         public Sku Sku { get; private set; } = default;// Stock Keeping Unit
 
+        public string? ImagePath { get; private set; }
         private Product() { } // EF Core requirement
+
+        public void UpdateImagePath(string imagePath)
+        {
+            // Architect Rule: Use a method to change state, don't just use a public setter
+            ImagePath = imagePath;
+        }
 
         public static Result<Product> Create(string name, string description, Money price, Sku sku)
         {

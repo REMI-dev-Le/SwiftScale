@@ -36,7 +36,7 @@ builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 app.UseExceptionHandler();
-
+app.UseStaticFiles();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
