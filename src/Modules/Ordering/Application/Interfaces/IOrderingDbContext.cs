@@ -6,7 +6,7 @@ namespace SwiftScale.Modules.Ordering.Application.Interfaces
 {
     public interface IOrderingDbContext
     {
-        DbSet<Order> Orders { get; }
+        DbSet<SwiftScale.Modules.Ordering.Domain.Order> Orders { get; }
         DbSet<OrderItem> OrderItems { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

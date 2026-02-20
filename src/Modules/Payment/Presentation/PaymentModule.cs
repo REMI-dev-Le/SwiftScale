@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SwiftScale.BuildingBlocks;
+using SwiftScale.Modules.Payment.Application.ProcessPayment;
 using SwiftScale.Modules.Payment.Infrastructure;
-using System.Reflection;
 
 namespace SwiftScale.Modules.Payment.Presentation;
 
@@ -19,8 +20,14 @@ public class PaymentModule : IModule
 
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
     {
-        var group = endpoints.MapGroup("payment");
-        group.MapPost("/process", () => Results.Ok("Payment Processed"));
+        var group = endpoints.MapGroup("payments");
+
+        group.MapPost("/", async (ProcessPaymentCommand command, ISender sender) =>
+        {
+            var result = await sender.Send(command);
+            return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
+        });
+
         return endpoints;
     }
 }

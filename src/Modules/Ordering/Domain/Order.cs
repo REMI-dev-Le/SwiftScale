@@ -25,6 +25,14 @@ public class Order : Entity
         };
     }
 
+    public void MarkAsPaid()
+    {
+        if (Status == OrderStatus.Pending)
+        {
+            Status = OrderStatus.Paid;
+        }
+    }
+
     public void AddItem(Guid productId, decimal price, int quantity)
     {
         _items.Add(new OrderItem(Id, productId, price, quantity));
