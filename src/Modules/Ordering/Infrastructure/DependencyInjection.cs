@@ -2,9 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SwiftScale.Modules.Ordering.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SwiftScale.Modules.Ordering.Infrastructure
 {

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Catalog\Application\SwiftScale.Modules.Catalog.Application.csproj" />
     <ProjectReference Include="..\..\Identity\Application\SwiftScale.Modules.Identity.Application.csproj" />
     <ProjectReference Include="..\Domain\SwiftScale.Modules.Ordering.Domain.csproj" />
   </ItemGroup>

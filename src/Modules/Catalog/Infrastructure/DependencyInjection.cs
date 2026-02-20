@@ -18,6 +18,7 @@ namespace SwiftScale.Modules.Catalog.Infrastructure
             services.AddScoped<ICatalogDbContext>(sp => sp.GetRequiredService<CatalogDbContext>());
             services.AddScoped<IFileStorageService, LocalFileStorageService>();
             services.AddScoped<IFileStorageService, LocalFileStorageService>();
+            services.AddScoped<ICatalogApi, CatalogApi>();
             services.AddMediatR(config =>
                 config.RegisterServicesFromAssembly(typeof(ICatalogDbContext).Assembly));
             return services;

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SwiftScale.BuildingBlocks;
+using SwiftScale.Modules.Catalog.Application.Order.CreateOrder;
 using SwiftScale.Modules.Ordering.Infrastructure;
 
 namespace SwiftScale.Modules.Ordering.Presentation;
@@ -19,7 +21,17 @@ public class OrderingModule : IModule
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
     {
         var group = endpoints.MapGroup("ordering");
-        group.MapGet("/orders", () => Results.Ok("Ordering List"));
+
+
+        // POST: Place a new order
+        group.MapPost("/orders", async (CreateOrderCommand command, ISender sender) =>
+        {
+            var result = await sender.Send(command);
+
+            return result.IsSuccess
+                ? Results.Ok(result.Value)
+                : Results.BadRequest(result.Error);
+        });
         return endpoints;
     }
 }

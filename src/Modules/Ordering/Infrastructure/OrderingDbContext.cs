@@ -17,8 +17,17 @@ public class OrderingDbContext : DbContext, IOrderingDbContext
         get => Set<Order>();
     }
 
+    public DbSet<OrderItem> OrderItems
+    {
+        get => Set<OrderItem>();
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("ordering");
+
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(OrderingDbContext).Assembly);
+
+        base.OnModelCreating(modelBuilder);
     }
 }
