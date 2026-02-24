@@ -31,7 +31,7 @@ public class OrderingModule : IModule
             return result.IsSuccess
                 ? Results.Ok(result.Value)
                 : Results.BadRequest(result.Error);
-        });
+        }).RequireAuthorization();
         return endpoints;
     }
 }

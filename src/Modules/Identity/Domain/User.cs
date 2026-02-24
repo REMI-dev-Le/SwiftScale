@@ -1,5 +1,6 @@
 ﻿// File: src/Modules/Identity/Domain/User.cs
 using SwiftScale.BuildingBlocks;
+using System.Data;
 
 namespace SwiftScale.Modules.Identity.Domain;
 
@@ -11,11 +12,14 @@ public class User : Entity
     public string PasswordHash { get; private set; } = string.Empty; // Added
     public string FirstName { get; private set; } = string.Empty;
     public string LastName { get; private set; } = string.Empty;
+
+    public string Role { get; private set; } = "Customer";
     public DateTime CreatedAt { get; private set; }
+
 
     private User() { } // Required for EF Core
 
-    public static User Create(string email, string username, string passwordHash, string firstName, string lastName)
+    public static User Create(string email, string username, string passwordHash, string firstName, string lastName, string role)
     {
 
         if (string.IsNullOrWhiteSpace(email))
@@ -41,6 +45,7 @@ public class User : Entity
             PasswordHash = passwordHash,
             FirstName = firstName,
             LastName = lastName,
+            Role = role,
             CreatedAt = DateTime.UtcNow
         };
     }

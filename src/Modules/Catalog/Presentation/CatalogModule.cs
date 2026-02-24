@@ -32,13 +32,13 @@ public class CatalogModule : IModule
             var result = await sender.Send(command);
 
             return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
-        });
+        }).RequireAuthorization(policy => policy.RequireRole("Admin"));
 
         group.MapGet("/products/{id:guid}", async (Guid id, ISender sender) =>
         {
             var result = await sender.Send(new GetProductQuery(id));
             return result.IsSuccess ? Results.Ok(result.Value) : Results.NotFound(result.Error);
-        });
+        }).RequireAuthorization(policy => policy.RequireRole("Admin"));
 
         group.MapPost("/{id:guid}/image", async (Guid id, IFormFile file, ISender sender) =>
         {
@@ -48,7 +48,7 @@ public class CatalogModule : IModule
             var result = await sender.Send(command);
 
             return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
-        }).DisableAntiforgery(); // Required for file uploads in some Minimal API configs
+        }).DisableAntiforgery().RequireAuthorization(policy => policy.RequireRole("Admin")); // Required for file uploads in some Minimal API configs
         return endpoints;
     }
 }

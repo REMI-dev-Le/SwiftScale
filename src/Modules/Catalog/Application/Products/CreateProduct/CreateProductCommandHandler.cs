@@ -1,11 +1,12 @@
 ﻿using MediatR;
 using SwiftScale.BuildingBlocks;
+using SwiftScale.BuildingBlocks.Auth;
 using SwiftScale.Modules.Catalog.Application.Interfaces;
 using SwiftScale.Modules.Catalog.Domain;
 
 namespace SwiftScale.Modules.Catalog.Application.Products.CreateProduct
 {
-    internal sealed class CreateProductCommandHandler(ICatalogDbContext context): IRequestHandler<CreateProductCommand, Result<Guid>>
+    internal sealed class CreateProductCommandHandler(ICatalogDbContext context) : IRequestHandler<CreateProductCommand, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {

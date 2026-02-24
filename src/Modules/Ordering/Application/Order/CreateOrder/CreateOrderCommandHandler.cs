@@ -1,17 +1,19 @@
 ﻿using MediatR;
 using SwiftScale.BuildingBlocks;
-using SwiftScale.Modules.Ordering.Application.Interfaces;
+using SwiftScale.BuildingBlocks.Auth;
 using SwiftScale.Modules.Catalog.Application.Interfaces;
+using SwiftScale.Modules.Ordering.Application.Interfaces;
 
 namespace SwiftScale.Modules.Catalog.Application.Order.CreateOrder
 {
-    internal sealed class CreateOrderCommandHandler(IOrderingDbContext context, ICatalogApi catalogApi) // Inject the Internal API
+    internal sealed class CreateOrderCommandHandler(IOrderingDbContext context, ICatalogApi catalogApi, ICurrentUserProvider currentUser) // Inject the Internal API
                                                    : IRequestHandler<CreateOrderCommand, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(CreateOrderCommand request, CancellationToken ct)
         {
+            var userId = currentUser.UserId;
             // 1. Initialize the Aggregate Root
-            var order = SwiftScale.Modules.Ordering.Domain.Order.Create(request.CustomerId); // <-- Fully qualify to avoid ambiguity
+            var order = SwiftScale.Modules.Ordering.Domain.Order.Create(userId); // <-- Fully qualify to avoid ambiguity
 
             foreach (var itemRequest in request.Items)
             {

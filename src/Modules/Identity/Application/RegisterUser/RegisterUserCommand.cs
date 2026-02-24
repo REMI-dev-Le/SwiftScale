@@ -6,5 +6,6 @@ namespace SwiftScale.Modules.Identity.Application.RegisterUser
                                       string Username,
                                       string Password,
                                       string FirstName,
-                                      string LastName) : IRequest<Result<Guid>>;
+                                      string LastName,
+                                      string Role) : IRequest<Result<Guid>>;
 }

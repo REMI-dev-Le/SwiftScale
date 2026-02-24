@@ -18,7 +18,8 @@ namespace SwiftScale.Modules.Identity.Application.RegisterUser
                                    request.Username,
                                    passwordHash,
                                    request.FirstName,
-                                   request.LastName);
+                                   request.LastName,
+                                   request.Role);
 
             // 3. Persist
             context.Users.Add(user);

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
+using SwiftScale.BuildingBlocks.Auth;
 using SwiftScale.Modules.Catalog.Infrastructure;
 using SwiftScale.Modules.Identity.Infrastructure;
 using SwiftScale.Modules.Identity.Presentation;
@@ -32,7 +33,8 @@ builder.Services.AddDbContext<OrderingDbContext>(opt => opt.UseNpgsql(connection
 
 // Register Payment
 builder.Services.AddDbContext<PaymentDbContext>(opt => opt.UseNpgsql(connectionString));
-
+builder.Services.AddHttpContextAccessor(); // Required for CurrentUserProvider
+builder.Services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
 builder.Services.RegisterModules(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>

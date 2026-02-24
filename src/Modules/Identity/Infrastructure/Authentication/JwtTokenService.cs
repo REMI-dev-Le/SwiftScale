@@ -16,6 +16,7 @@ namespace SwiftScale.Modules.Identity.Infrastructure.Authentication
         {
             new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new(JwtRegisteredClaimNames.Email, user.Email),
+            new(ClaimTypes.Role, user.Role),
             new("username", user.Username)
         };
 
