@@ -1,7 +1,9 @@
 ﻿// File: src/Modules/Identity/Domain/User.cs
+using SwiftScale.BuildingBlocks;
+
 namespace SwiftScale.Modules.Identity.Domain;
 
-public class User
+public class User : Entity
 {
     public Guid Id { get; private set; }
     public string Email { get; private set; } = string.Empty;

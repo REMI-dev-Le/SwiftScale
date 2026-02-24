@@ -1,10 +1,16 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.OpenApi;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
 using SwiftScale.Modules.Catalog.Infrastructure;
 using SwiftScale.Modules.Identity.Infrastructure;
 using SwiftScale.Modules.Identity.Presentation;
 using SwiftScale.Modules.Ordering.Infrastructure;
 using SwiftScale.Modules.Payment.Infrastructure;
 using SwiftScale.WebApi.Infrastructure;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,15 +35,54 @@ builder.Services.AddDbContext<PaymentDbContext>(opt => opt.UseNpgsql(connectionS
 
 builder.Services.RegisterModules(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Enter your JWT token"
+    });
 
+    // ? New v10 syntax
+    options.AddSecurityRequirement((document) => new OpenApiSecurityRequirement
+    {
+        [new OpenApiSecuritySchemeReference("Bearer", document)] = new List<string>()
+    });
+});
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+        };
+    });
+
+
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 app.UseExceptionHandler();
 app.UseStaticFiles();
-// Configure the HTTP request pipeline.
+
+app.UseAuthentication(); // Must come before UseAuthorization
+app.UseAuthorization();
+// Configure the HTTP r
+// equest pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

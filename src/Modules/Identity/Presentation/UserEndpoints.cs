@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SwiftScale.BuildingBlocks;
 using SwiftScale.Modules.Identity.Application.RegisterUser;
+using SwiftScale.Modules.Identity.Application.Users.Login;
 using SwiftScale.Modules.Identity.Infrastructure;
 
 
@@ -27,6 +28,12 @@ public class UserEndpoints : IModule
         var group = app.MapGroup("users"); // Optional: groups all identity routes under /users
 
         group.MapPost("/", async (RegisterUserCommand command, ISender sender) =>
+        {
+            var result = await sender.Send(command);
+            return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
+        });
+
+        group.MapPost("/login", async (LoginCommand command, ISender sender) =>
         {
             var result = await sender.Send(command);
             return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
