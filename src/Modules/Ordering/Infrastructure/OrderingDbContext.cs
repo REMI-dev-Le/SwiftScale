@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using SwiftScale.BuildingBlocks;
 using SwiftScale.Modules.Ordering.Application.Interfaces;
 using SwiftScale.Modules.Ordering.Domain;
+using SwiftScale.Modules.Ordering.Domain.Outbox;
 
 namespace SwiftScale.Modules.Ordering.Infrastructure;
 
@@ -26,11 +28,19 @@ public class OrderingDbContext : DbContext, IOrderingDbContext
         get => Set<OrderItem>();
     }
 
+    public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("ordering");
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(OrderingDbContext).Assembly);
+
+        modelBuilder.Entity<OutboxMessage>(builder =>
+        {
+            builder.ToTable("OutboxMessages", "ordering");
+            builder.HasKey(x => x.Id);
+        });
 
         base.OnModelCreating(modelBuilder);
     }
@@ -47,15 +57,31 @@ public class OrderingDbContext : DbContext, IOrderingDbContext
                 return events;
             }).ToList();
 
-        // 2. Save the changes to the DB first
-        var result = await base.SaveChangesAsync(ct);
-
-        // 3. Dispatch the events through MediatR
-        foreach (var domainEvent in domainEvents)
+        var outboxMessages = domainEvents.Select(domainEvent => new OutboxMessage
         {
-            await _publisher.Publish(domainEvent, ct);
-        }
+            Id = Guid.NewGuid(),
+            OccurredOnUtc = DateTime.UtcNow,
+            Type = domainEvent.GetType().Name,
+            Content = JsonConvert.SerializeObject(domainEvent, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All // Important for deserialization later!
+            })
+        }).ToList();
 
-        return result;
+        OutboxMessages.AddRange(outboxMessages);
+
+        return await base.SaveChangesAsync(ct);
+
+
+        //// 2. Save the changes to the DB first
+        //var result = await base.SaveChangesAsync(ct);
+
+        //// 3. Dispatch the events through MediatR
+        //foreach (var domainEvent in domainEvents)
+        //{
+        //    await _publisher.Publish(domainEvent, ct);
+        //}
+
+        //return result;
     }
 }

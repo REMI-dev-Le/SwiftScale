@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SwiftScale.Modules.Ordering.Application.Interfaces;
+using SwiftScale.Modules.Ordering.Infrastructure.Outbox;
 
 namespace SwiftScale.Modules.Ordering.Infrastructure
 {
@@ -18,6 +19,7 @@ namespace SwiftScale.Modules.Ordering.Infrastructure
             services.AddMediatR(config =>
                 config.RegisterServicesFromAssembly(typeof(IOrderingDbContext).Assembly));
 
+            services.AddHostedService<OutboxProcessor>();
             return services;
         }
     }
