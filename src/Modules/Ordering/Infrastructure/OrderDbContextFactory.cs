@@ -16,7 +16,7 @@ namespace SwiftScale.Modules.Ordering.Infrastructure
             // Use a dummy connection string for design-time (migration generation)
             optionsBuilder.UseNpgsql("Host=localhost;Database=SwiftScaleDb;Username=app;Password=apppass");
 
-            return new OrderingDbContext(optionsBuilder.Options);
+            return new OrderingDbContext(optionsBuilder.Options,null);
         }
     }
 }

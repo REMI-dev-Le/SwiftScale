@@ -1,4 +1,5 @@
 ﻿using SwiftScale.BuildingBlocks;
+using SwiftScale.Modules.Ordering.Domain.Events;
 
 namespace SwiftScale.Modules.Ordering.Domain;
 
@@ -16,13 +17,17 @@ public class Order : Entity
 
     public static Order Create(Guid userId)
     {
-        return new Order
+        var order = new Order
         {
             Id = Guid.NewGuid(),
             UserId = userId,
             CreatedAt = DateTime.UtcNow,
             Status = OrderStatus.Pending
         };
+
+        order.Raise(new OrderCreatedDomainEvent(order.Id));
+
+        return order;
     }
 
     public void MarkAsPaid()

@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\SwiftScale.BuildingBlocks.csproj" />
     <ProjectReference Include="..\Application\SwiftScale.Modules.Ordering.Application.csproj" />
     <ProjectReference Include="..\Domain\SwiftScale.Modules.Ordering.Domain.csproj" />
   </ItemGroup>
