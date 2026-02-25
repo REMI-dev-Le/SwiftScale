@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using SwiftScale.BuildingBlocks;
 using SwiftScale.BuildingBlocks.Auth;
 using SwiftScale.Modules.Catalog.Application.Interfaces;
@@ -6,10 +7,15 @@ using SwiftScale.Modules.Catalog.Domain;
 
 namespace SwiftScale.Modules.Catalog.Application.Products.CreateProduct
 {
-    internal sealed class CreateProductCommandHandler(ICatalogDbContext context) : IRequestHandler<CreateProductCommand, Result<Guid>>
+    internal sealed class CreateProductCommandHandler(ICatalogDbContext context, ICurrentUserProvider currentUser, ILogger<CreateProductCommand> logger) : IRequestHandler<CreateProductCommand, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
+
+            if (logger.IsEnabled(LogLevel.Information))
+            {
+                logger.LogInformation("Attempting to create product by User: {UserId}", currentUser.UserId);
+            }
             // 1. Create the Money Value Object
             var priceResult = Money.Create(request.Price);
             if (priceResult.IsFailure)
@@ -38,6 +44,8 @@ namespace SwiftScale.Modules.Catalog.Application.Products.CreateProduct
             // 3. Persist
             context.Products.Add(productResult.Value);
             await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Product {ProductId} successfully created for User {UserId}", productResult.Value.Id, currentUser.UserId);
 
             return Result<Guid>.Success(productResult.Value.Id);
         }

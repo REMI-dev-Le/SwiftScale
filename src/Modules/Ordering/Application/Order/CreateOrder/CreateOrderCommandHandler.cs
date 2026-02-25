@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using SwiftScale.BuildingBlocks;
 using SwiftScale.BuildingBlocks.Auth;
 using SwiftScale.Modules.Catalog.Application.Interfaces;
@@ -6,11 +7,12 @@ using SwiftScale.Modules.Ordering.Application.Interfaces;
 
 namespace SwiftScale.Modules.Catalog.Application.Order.CreateOrder
 {
-    internal sealed class CreateOrderCommandHandler(IOrderingDbContext context, ICatalogApi catalogApi, ICurrentUserProvider currentUser) // Inject the Internal API
+    internal sealed class CreateOrderCommandHandler(IOrderingDbContext context, ICatalogApi catalogApi, ICurrentUserProvider currentUser, ILogger<CreateOrderCommandHandler> logger) // Inject the Internal API
                                                    : IRequestHandler<CreateOrderCommand, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(CreateOrderCommand request, CancellationToken ct)
         {
+            logger.LogInformation("Attempting to create order for User: {UserId}", currentUser.UserId);
             var userId = currentUser.UserId;
             // 1. Initialize the Aggregate Root
             var order = SwiftScale.Modules.Ordering.Domain.Order.Create(userId); // <-- Fully qualify to avoid ambiguity
@@ -32,6 +34,9 @@ namespace SwiftScale.Modules.Catalog.Application.Order.CreateOrder
             // 4. Persist the Order and its Items to the 'ordering' schema
             context.Orders.Add(order);
             await context.SaveChangesAsync(ct);
+
+            // Structured logging allows you to filter by OrderId later
+            logger.LogInformation("Order {OrderId} successfully created for User {UserId}", order.Id, currentUser.UserId);
 
             return Result<Guid>.Success(order.Id);
         }

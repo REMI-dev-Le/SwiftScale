@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SwiftScale.BuildingBlocks;
 using SwiftScale.Modules.Catalog.Application.Order.CreateOrder;
+using SwiftScale.Modules.Ordering.Application.Order.GetOrderHistory;
 using SwiftScale.Modules.Ordering.Infrastructure;
 
 namespace SwiftScale.Modules.Ordering.Presentation;
@@ -32,6 +33,12 @@ public class OrderingModule : IModule
                 ? Results.Ok(result.Value)
                 : Results.BadRequest(result.Error);
         }).RequireAuthorization();
+
+        group.MapGet("/history", async (ISender sender) =>
+        {
+            var result = await sender.Send(new GetOrderHistoryQuery());
+            return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
+        }).RequireAuthorization(); // Secure the history
         return endpoints;
     }
 }

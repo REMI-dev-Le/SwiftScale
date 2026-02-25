@@ -1,11 +1,13 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using SwiftScale.BuildingBlocks;
+using SwiftScale.BuildingBlocks.Auth;
 using SwiftScale.Modules.Identity.Application.Interfaces;
 using SwiftScale.Modules.Identity.Domain;
 
 namespace SwiftScale.Modules.Identity.Application.RegisterUser
 {
-    public sealed class RegisterUserCommandHandler(IIdentityDbContext context, IPasswordHasher passwordHasher, IPublisher publisher) : IRequestHandler<RegisterUserCommand, Result<Guid>>
+    public sealed class RegisterUserCommandHandler(IIdentityDbContext context, IPasswordHasher passwordHasher, IPublisher publisher, ICurrentUserProvider currentUser, ILogger<RegisterUserCommand> logger) : IRequestHandler<RegisterUserCommand, Result<Guid>>
     {
 
         public async Task<Result<Guid>> Handle(RegisterUserCommand request,CancellationToken cancellationToken)
