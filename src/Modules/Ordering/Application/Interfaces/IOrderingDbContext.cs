@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SwiftScale.BuildingBlocks.Messaging;
 using SwiftScale.Modules.Ordering.Domain;
+using SwiftScale.Modules.Ordering.Domain.Outbox;
 using System.Collections.Generic;
 
 namespace SwiftScale.Modules.Ordering.Application.Interfaces
@@ -8,6 +10,8 @@ namespace SwiftScale.Modules.Ordering.Application.Interfaces
     {
         DbSet<SwiftScale.Modules.Ordering.Domain.Order> Orders { get; }
         DbSet<OrderItem> OrderItems { get; }
+        DbSet<OutboxMessage> OutboxMessages { get; }
+        DbSet<InboxMessage> InboxMessages { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

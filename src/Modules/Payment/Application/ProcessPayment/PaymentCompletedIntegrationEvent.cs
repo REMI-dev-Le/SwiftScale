@@ -1,10 +1,9 @@
-﻿using SwiftScale.BuildingBlocks;
+﻿using MediatR;
 
 namespace SwiftScale.Modules.Payment.Application.ProcessPayment
 {
-    public record PaymentCompletedIntegrationEvent(Guid OrderId,Guid PaymentId) : IIntegrationEvent
-    {
-        public Guid Id => Guid.NewGuid();
-        public DateTime OccurredOnUtc => DateTime.UtcNow;
-    }
+    public record PaymentCompletedIntegrationEvent(Guid Id,               // Unique ID for the Inbox to track
+                                                   Guid OrderId,
+                                                   decimal Amount,
+                                                   DateTime OccurredOnUtc) : INotification;
 }

@@ -32,10 +32,17 @@ public class Order : Entity
 
     public void MarkAsPaid()
     {
-        if (Status == OrderStatus.Pending)
+        // Rule: You can only pay for a Pending order
+        if (Status != OrderStatus.Pending)
         {
-            Status = OrderStatus.Paid;
+            throw new InvalidOperationException("Order cannot be marked as paid in its current state.");
         }
+
+        Status = OrderStatus.Paid;
+
+        // Optional: Raise a Domain Event if other parts of Ordering need to react 
+        // e.g., to notify a warehouse or update an audit log
+        Raise(new OrderPaidDomainEvent(Id));
     }
 
     public void AddItem(Guid productId, decimal price, int quantity)

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SwiftScale.BuildingBlocks;
+using SwiftScale.BuildingBlocks.Messaging;
 using SwiftScale.Modules.Ordering.Application.Interfaces;
 using SwiftScale.Modules.Ordering.Domain;
 using SwiftScale.Modules.Ordering.Domain.Outbox;
@@ -30,6 +31,8 @@ public class OrderingDbContext : DbContext, IOrderingDbContext
 
     public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
 
+    public DbSet<InboxMessage> InboxMessages => Set<InboxMessage>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("ordering");
@@ -39,6 +42,12 @@ public class OrderingDbContext : DbContext, IOrderingDbContext
         modelBuilder.Entity<OutboxMessage>(builder =>
         {
             builder.ToTable("OutboxMessages", "ordering");
+            builder.HasKey(x => x.Id);
+        });
+
+        modelBuilder.Entity<InboxMessage>(builder =>
+        {
+            builder.ToTable("InboxMessages", "ordering"); // Keep it in the ordering schema
             builder.HasKey(x => x.Id);
         });
 

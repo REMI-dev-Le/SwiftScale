@@ -17,7 +17,7 @@ namespace SwiftScale.Modules.Payment.Application.ProcessPayment
             var paymentId = Guid.NewGuid();
 
             // Broadcast to the whole system that payment is done
-            await publisher.Publish(new PaymentCompletedIntegrationEvent(request.OrderId, paymentId), ct);
+            await publisher.Publish(new PaymentCompletedIntegrationEvent(request.OrderId, paymentId, request.Amount, DateTime.UtcNow), ct);
 
 
             logger.LogInformation("Payment successful for {OrderId} from User {UserId}", request.OrderId, currentUser.UserId);
