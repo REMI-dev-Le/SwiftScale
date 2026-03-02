@@ -59,4 +59,9 @@
   <Folder Name="/src/WebApi/">
     <Project Path="src/WebApi/SwiftScale.WebApi.csproj" />
   </Folder>
+  <Folder Name="/tests/" />
+  <Folder Name="/tests/Modules/" />
+  <Folder Name="/tests/Modules/Ordering/">
+    <Project Path="UnitTests/UnitTests.csproj" Id="9c71690c-5e50-40c0-b52d-6d1c033cf28a" />
+  </Folder>
 </Solution>

@@ -8,7 +8,7 @@ using SwiftScale.Modules.Payment.Application.ProcessPayment;
 
 namespace SwiftScale.Modules.Ordering.Application.Payments.HandlePaymentCompleted
 {
-    internal sealed class PaymentCompletedInboxHandler(IOrderingDbContext context, ILogger<PaymentCompletedInboxHandler> logger) : INotificationHandler<PaymentCompletedIntegrationEvent>
+    public sealed class PaymentCompletedInboxHandler(IOrderingDbContext context, ILogger<PaymentCompletedInboxHandler> logger) : INotificationHandler<PaymentCompletedIntegrationEvent>
     {
 
         public async Task Handle(PaymentCompletedIntegrationEvent notification, CancellationToken ct)
