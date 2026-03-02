@@ -34,6 +34,9 @@
   <Folder Name="/src/Modules/Ordering/Application/">
     <Project Path="src/Modules/Ordering/Application/SwiftScale.Modules.Ordering.Application.csproj" />
   </Folder>
+  <Folder Name="/src/Modules/Ordering/Contracts/">
+    <Project Path="src/Modules/Ordering/Contracts/SwiftScale.Modules.Ordering.Contracts/SwiftScale.Modules.Ordering.Contracts.csproj" Id="433e067a-1546-496c-8a6b-43c4cab377b8" />
+  </Folder>
   <Folder Name="/src/Modules/Ordering/Domain/">
     <Project Path="src/Modules/Ordering/Domain/SwiftScale.Modules.Ordering.Domain.csproj" />
   </Folder>
@@ -63,5 +66,8 @@
   <Folder Name="/tests/Modules/" />
   <Folder Name="/tests/Modules/Ordering/">
     <Project Path="UnitTests/UnitTests.csproj" Id="9c71690c-5e50-40c0-b52d-6d1c033cf28a" />
+  </Folder>
+  <Folder Name="/tests/Modules/Ordering/IntegrationTests/">
+    <Project Path="IntegrationTests/IntegrationTests.csproj" Id="31b3be4f-78a2-4130-8a52-59412e479d85" />
   </Folder>
 </Solution>
