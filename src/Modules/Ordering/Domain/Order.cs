@@ -13,6 +13,8 @@ public class Order : Entity
     private readonly List<OrderItem> _items = new();
     public IReadOnlyList<OrderItem> Items => _items.AsReadOnly();
 
+    public decimal TotalAmount => _items.Sum(item => item.UnitPrice * item.Quantity);
+
     private Order() { }
 
     public static Order Create(Guid userId)
@@ -48,5 +50,19 @@ public class Order : Entity
     public void AddItem(Guid productId, decimal price, int quantity)
     {
         _items.Add(new OrderItem(Id, productId, price, quantity));
+    }
+
+    public void Cancel(string reason)
+    {
+        // Rule: You can only cancel an order that hasn't been processed or paid yet
+        if (Status != OrderStatus.Pending)
+        {
+            throw new InvalidOperationException($"Order cannot be cancelled from the {Status} state.");
+        }
+
+        Status = OrderStatus.Cancelled;
+
+        // Log the reason or raise a domain event if other parts of the module need to know
+        Raise(new OrderCancelledDomainEvent(Id, reason));
     }
 }

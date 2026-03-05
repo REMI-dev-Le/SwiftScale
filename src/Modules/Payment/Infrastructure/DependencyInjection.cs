@@ -2,9 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SwiftScale.Modules.Payment.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using SwiftScale.Modules.Payment.Application.Orders.HandleOrderPlaced;
 
 namespace SwiftScale.Modules.Payment.Infrastructure
 {
@@ -20,6 +18,10 @@ namespace SwiftScale.Modules.Payment.Infrastructure
 
             services.AddMediatR(config =>
                 config.RegisterServicesFromAssembly(typeof(IPaymentDbContext).Assembly));
+
+            services.AddMediatR(cfg => {
+                cfg.RegisterServicesFromAssembly(typeof(OrderPlacedIntegrationEventHandler).Assembly);
+            });
 
             return services;
         }

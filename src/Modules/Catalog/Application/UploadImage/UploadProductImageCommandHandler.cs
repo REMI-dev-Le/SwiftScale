@@ -8,7 +8,7 @@ using SwiftScale.Modules.Catalog.Application.Products.CreateProduct;
 
 namespace SwiftScale.Modules.Catalog.Application.UploadImage
 {
-    internal sealed class UploadProductImageCommandHandler(ICatalogDbContext context, IFileStorageService storageService, ICurrentUserProvider currentUser, ILogger<UploadProductImageCommand> logger)
+    public sealed class UploadProductImageCommandHandler(ICatalogDbContext context, IFileStorageService storageService, ICurrentUserProvider currentUser, ILogger<UploadProductImageCommand> logger)
           : IRequestHandler<UploadProductImageCommand, Result<string>>
     {
         public async Task<Result<string>> Handle(UploadProductImageCommand request, CancellationToken ct)

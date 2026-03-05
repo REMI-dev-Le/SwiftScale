@@ -1,4 +1,4 @@
-﻿namespace SwiftScale.Modules.Ordering.Domain.Outbox
+﻿namespace SwiftScale.BuildingBlocks.Messaging
 {
     public sealed class OutboxMessage
     {

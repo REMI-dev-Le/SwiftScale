@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SwiftScale.BuildingBlocks.Messaging;
 using SwiftScale.Modules.Ordering.Domain;
-using SwiftScale.Modules.Ordering.Domain.Outbox;
-using System.Collections.Generic;
 
 namespace SwiftScale.Modules.Ordering.Application.Interfaces
 {

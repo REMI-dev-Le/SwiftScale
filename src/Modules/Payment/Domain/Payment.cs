@@ -1,20 +1,20 @@
 ﻿namespace SwiftScale.Modules.Payment.Domain;
 
-public class Transaction
+public class Payment
 {
     public Guid Id { get; private set; }
     public Guid OrderId { get; private set; }
     public decimal Amount { get; private set; }
-    public bool IsSuccess { get; private set; }
+    public PaymentStatus Status { get; private set; }
 
-    public static Transaction Create(Guid orderId, decimal amount)
+    public static Payment Create(Guid orderId, decimal amount)
     {
-        return new Transaction
+        return new Payment
         {
             Id = Guid.NewGuid(),
             OrderId = orderId,
             Amount = amount,
-            IsSuccess = false
+            Status = PaymentStatus.Pending,
         };
     }
 }

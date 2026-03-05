@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\SwiftScale.BuildingBlocks.csproj" />
     <ProjectReference Include="..\..\Ordering\Contracts\SwiftScale.Modules.Ordering.Contracts\SwiftScale.Modules.Ordering.Contracts.csproj" />
+    <ProjectReference Include="..\Contracts\SwiftScale.Modules.Payment.Application.Contracts\SwiftScale.Modules.Payment.Contracts.csproj" />
     <ProjectReference Include="..\Domain\SwiftScale.Modules.Payment.Domain.csproj" />
   </ItemGroup>
 </Project>

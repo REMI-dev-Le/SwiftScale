@@ -7,7 +7,7 @@ using SwiftScale.Modules.Catalog.Domain;
 
 namespace SwiftScale.Modules.Catalog.Application.Products.CreateProduct
 {
-    internal sealed class CreateProductCommandHandler(ICatalogDbContext context, ICurrentUserProvider currentUser, ILogger<CreateProductCommand> logger) : IRequestHandler<CreateProductCommand, Result<Guid>>
+    public sealed class CreateProductCommandHandler(ICatalogDbContext context, ICurrentUserProvider currentUser, ILogger<CreateProductCommand> logger) : IRequestHandler<CreateProductCommand, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {

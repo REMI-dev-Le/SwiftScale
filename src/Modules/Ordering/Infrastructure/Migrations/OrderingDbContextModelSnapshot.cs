@@ -51,6 +51,34 @@ namespace SwiftScale.Modules.Ordering.Infrastructure.Migrations
                     b.ToTable("InboxMessages", "ordering");
                 });
 
+            modelBuilder.Entity("SwiftScale.BuildingBlocks.Messaging.OutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("OccurredOnUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("ProcessedOnUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OutboxMessages", "ordering");
+                });
+
             modelBuilder.Entity("SwiftScale.Modules.Ordering.Domain.Order", b =>
                 {
                     b.Property<Guid>("Id")
@@ -95,34 +123,6 @@ namespace SwiftScale.Modules.Ordering.Infrastructure.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderItems", "ordering");
-                });
-
-            modelBuilder.Entity("SwiftScale.Modules.Ordering.Domain.Outbox.OutboxMessage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Error")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("OccurredOnUtc")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("ProcessedOnUtc")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OutboxMessages", "ordering");
                 });
 
             modelBuilder.Entity("SwiftScale.Modules.Ordering.Domain.OrderItem", b =>

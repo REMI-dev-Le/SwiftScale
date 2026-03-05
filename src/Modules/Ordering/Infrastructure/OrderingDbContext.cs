@@ -5,7 +5,6 @@ using SwiftScale.BuildingBlocks;
 using SwiftScale.BuildingBlocks.Messaging;
 using SwiftScale.Modules.Ordering.Application.Interfaces;
 using SwiftScale.Modules.Ordering.Domain;
-using SwiftScale.Modules.Ordering.Domain.Outbox;
 
 namespace SwiftScale.Modules.Ordering.Infrastructure;
 

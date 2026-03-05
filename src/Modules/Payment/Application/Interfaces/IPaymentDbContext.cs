@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SwiftScale.Modules.Payment.Domain;
-using System.Collections.Generic;
+using SwiftScale.BuildingBlocks.Messaging;
 
 namespace SwiftScale.Modules.Payment.Application.Interfaces
 {
     public interface IPaymentDbContext
     {
-        DbSet<Transaction> Transactions { get; }
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+        DbSet<Domain.Payment> Payments { get; }
+        DbSet<InboxMessage> InboxMessages { get; }
+        DbSet<OutboxMessage> OutboxMessages { get; }
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }
