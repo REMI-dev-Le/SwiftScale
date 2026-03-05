@@ -289,5 +289,20 @@ namespace UnitTests.Domain
             await action.Should().ThrowAsync<InvalidOperationException>()
                 .WithMessage("Order cannot be marked as paid in its current state.");
         }
+
+        [Fact]
+        public void Cancel_ShouldThrowException_WhenOrderIsAlreadyPaid()
+        {
+            // Arrange
+            var order = Order.Create(Guid.NewGuid());
+            order.MarkAsPaid();
+
+            // Act
+            Action act = () => order.Cancel("Customer changed mind");
+
+            // Assert
+            act.Should().Throw<InvalidOperationException>()
+               .WithMessage("Order cannot be cancelled from the Paid state.");
+        }
     }
 }

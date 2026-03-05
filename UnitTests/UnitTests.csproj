@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -18,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\src\Modules\Catalog\Domain\SwiftScale.Modules.Catalog.Domain.csproj" />
+    <ProjectReference Include="..\src\Modules\Catalog\Application\SwiftScale.Modules.Catalog.Application.csproj" />
+    <ProjectReference Include="..\src\Modules\Catalog\Infrastructure\SwiftScale.Modules.Catalog.Infrastructure.csproj" />
     <ProjectReference Include="..\src\Modules\Ordering\Application\SwiftScale.Modules.Ordering.Application.csproj" />
     <ProjectReference Include="..\src\Modules\Ordering\Domain\SwiftScale.Modules.Ordering.Domain.csproj" />
     <ProjectReference Include="..\src\Modules\Ordering\Infrastructure\SwiftScale.Modules.Ordering.Infrastructure.csproj" />
